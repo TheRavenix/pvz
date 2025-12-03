@@ -13,6 +13,12 @@ export type ZombieState = {
 } & Vector2 &
   Size;
 
+export type Zombie<S extends ZombieState = ZombieState> = {
+  state: S;
+  draw(options: ZombieDrawOptions): void;
+  update(options: ZombieUpdateOptions): void;
+};
+
 export type ZombieDrawOptions<S extends ZombieState = ZombieState> = {
   state: S;
   board: Board;

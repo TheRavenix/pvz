@@ -10,11 +10,11 @@ import { ZOMBIE_HEIGHT, ZOMBIE_WIDTH, ZombieId } from "./constants";
 
 import { type Vector2 } from "@/game/utils/vector";
 import type {
+  Zombie,
   ZombieDrawOptions,
   ZombieState,
   ZombieUpdateOptions,
 } from "./types";
-import type { Zombie } from "./interfaces";
 
 type NormalZombieState = ZombieState;
 
@@ -46,13 +46,13 @@ function createNormalZombie(options: CreateNormalZombieOptions): NormalZombie {
   };
 
   return {
-    getState: () => state,
-    draw: drawNormalZombie,
-    update: updateNormalZombie,
+    state,
+    draw,
+    update,
   };
 }
 
-function drawNormalZombie(options: ZombieDrawOptions<NormalZombieState>) {
+function draw(options: ZombieDrawOptions<NormalZombieState>) {
   const { state, board } = options;
   const { ctx } = board;
 
@@ -65,9 +65,9 @@ function drawNormalZombie(options: ZombieDrawOptions<NormalZombieState>) {
   drawHitbox(state.hitbox, board);
 }
 
-function updateNormalZombie(options: ZombieUpdateOptions<NormalZombieState>) {
+function update(options: ZombieUpdateOptions<NormalZombieState>) {
   handleZombieDefaultMovement(options);
   syncZombieHitbox(options);
 }
 
-export { createNormalZombie, drawNormalZombie, updateNormalZombie };
+export { createNormalZombie };

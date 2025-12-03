@@ -10,15 +10,15 @@ import { ZOMBIE_HEIGHT, ZOMBIE_WIDTH, ZombieId } from "./constants";
 
 import { type Vector2 } from "@/game/utils/vector";
 import type {
+  Zombie,
   ZombieDrawOptions,
   ZombieState,
   ZombieUpdateOptions,
 } from "./types";
-import type { Zombie } from "./interfaces";
 
 type FlagZombieState = ZombieState;
 
-interface FlagZombie extends Zombie<FlagZombieState> {}
+type FlagZombie = Zombie<FlagZombieState>;
 
 type CreateFlagZombieOptions = Vector2;
 
@@ -46,13 +46,13 @@ function createFlagZombie(options: CreateFlagZombieOptions): FlagZombie {
   };
 
   return {
-    getState: () => state,
-    draw: drawFlagZombie,
-    update: updateFlagZombie,
+    state,
+    draw,
+    update,
   };
 }
 
-function drawFlagZombie(options: ZombieDrawOptions<FlagZombieState>) {
+function draw(options: ZombieDrawOptions<FlagZombieState>) {
   const { state, board } = options;
   const { ctx } = board;
 
@@ -65,9 +65,9 @@ function drawFlagZombie(options: ZombieDrawOptions<FlagZombieState>) {
   drawHitbox(state.hitbox, board);
 }
 
-function updateFlagZombie(options: ZombieUpdateOptions<FlagZombieState>) {
+function update(options: ZombieUpdateOptions<FlagZombieState>) {
   handleZombieDefaultMovement(options);
   syncZombieHitbox(options);
 }
 
-export { createFlagZombie, drawFlagZombie, updateFlagZombie };
+export { createFlagZombie };

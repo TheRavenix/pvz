@@ -11,7 +11,9 @@ import {
 import {
   createFlagZombie,
   createNormalZombie,
+  createZombieManager,
   type Zombie,
+  type ZombieManager,
 } from "./entities/zombies";
 import {
   createPeashooter,
@@ -22,17 +24,17 @@ import { type Shot } from "./entities/shots";
 
 type Game = {
   lastTime: number;
-  zombies: Zombie[];
+  zombieManager: ZombieManager;
   plants: Plant[];
   shots: Shot[];
 };
 
 function createGame(): Game {
-  const zombies: Zombie[] = [];
+  const zombieManager = createZombieManager();
   const plants: Plant[] = [];
   const shots: Shot[] = [];
 
-  zombies.push(
+  zombieManager.addZombies(
     createNormalZombie({
       x: TILE_WIDTH * (BOARD_ROWS - 1),
       y: TILE_HEIGHT * 2,
@@ -63,7 +65,7 @@ function createGame(): Game {
 
   return {
     lastTime: 0,
-    zombies,
+    zombieManager,
     plants,
     shots,
   };
@@ -84,9 +86,9 @@ function drawGame(game: Game, board: Board) {
 
   drawBoardTileStroke(board);
 
-  for (const zombie of game.zombies) {
+  for (const zombie of game.zombieManager.zombies) {
     zombie.draw({
-      state: zombie.getState(),
+      state: zombie.state,
       board,
     });
   }
@@ -105,10 +107,10 @@ function drawGame(game: Game, board: Board) {
 }
 
 function updateGame(deltaTime: number, game: Game) {
-  for (const zombie of game.zombies) {
+  for (const zombie of game.zombieManager.zombies) {
     zombie.update({
       deltaTime,
-      state: zombie.getState(),
+      state: zombie.state,
     });
   }
   for (const plant of game.plants) {
