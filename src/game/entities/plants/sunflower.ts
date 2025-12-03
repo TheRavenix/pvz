@@ -40,12 +40,12 @@ function createSunflower(options: CreateSunflowerOptions): Sunflower {
 
   return {
     state,
-    draw: drawSunflower,
-    update: updateSunflower,
+    draw,
+    update,
   };
 }
 
-function drawSunflower(options: PlantDrawOptions<SunflowerState>) {
+function draw(options: PlantDrawOptions<SunflowerState>) {
   const { state, board } = options;
   const { ctx } = board;
 
@@ -58,8 +58,8 @@ function drawSunflower(options: PlantDrawOptions<SunflowerState>) {
   drawHitbox(state.hitbox, board);
 }
 
-function updateSunflower(options: PlantUpdateOptions<SunflowerState>) {
+function update(options: PlantUpdateOptions<SunflowerState>) {
   syncPlantHitbox(options);
 }
 
-export { createSunflower, drawSunflower, updateSunflower };
+export { createSunflower };

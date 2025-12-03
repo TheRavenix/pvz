@@ -45,12 +45,12 @@ function createPeashooter(options: CreatePeashooterOptions): Peashooter {
 
   return {
     state,
-    draw: drawPeashooter,
-    update: updatePeashooter,
+    draw,
+    update,
   };
 }
 
-function drawPeashooter(options: PlantDrawOptions<PeashooterState>) {
+function draw(options: PlantDrawOptions<PeashooterState>) {
   const { state, board } = options;
   const { ctx } = board;
 
@@ -63,7 +63,7 @@ function drawPeashooter(options: PlantDrawOptions<PeashooterState>) {
   drawHitbox(state.hitbox, board);
 }
 
-function updatePeashooter(options: PlantUpdateOptions<PeashooterState>) {
+function update(options: PlantUpdateOptions<PeashooterState>) {
   const { deltaTime, state, game } = options;
 
   state.shotTimer += deltaTime;
@@ -81,4 +81,4 @@ function updatePeashooter(options: PlantUpdateOptions<PeashooterState>) {
   syncPlantHitbox(options);
 }
 
-export { createPeashooter, drawPeashooter, updatePeashooter };
+export { createPeashooter };
