@@ -4,8 +4,12 @@ import { createPeashot, SHOT_HEIGHT } from "../shots";
 
 import { PLANT_HEIGHT, PLANT_WIDTH, PlantId } from "./constants";
 
-import type { PlantDrawOptions, PlantState, PlantUpdateOptions } from "./types";
-import type { Plant } from "./interfaces";
+import type {
+  Plant,
+  PlantDrawOptions,
+  PlantState,
+  PlantUpdateOptions,
+} from "./types";
 import type { Vector2 } from "@/game/utils/vector";
 
 type PeashooterState = {
@@ -40,7 +44,7 @@ function createPeashooter(options: CreatePeashooterOptions): Peashooter {
   };
 
   return {
-    getState: () => state,
+    state,
     draw: drawPeashooter,
     update: updatePeashooter,
   };

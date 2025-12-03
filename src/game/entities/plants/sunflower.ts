@@ -3,8 +3,12 @@ import { drawPlantId, drawPlantRect, syncPlantHitbox } from "./helpers";
 
 import { PLANT_HEIGHT, PLANT_WIDTH, PlantId } from "./constants";
 
-import type { PlantDrawOptions, PlantState, PlantUpdateOptions } from "./types";
-import type { Plant } from "./interfaces";
+import type {
+  Plant,
+  PlantDrawOptions,
+  PlantState,
+  PlantUpdateOptions,
+} from "./types";
 import type { Vector2 } from "@/game/utils/vector";
 
 type SunflowerState = PlantState;
@@ -35,7 +39,7 @@ function createSunflower(options: CreateSunflowerOptions): Sunflower {
   };
 
   return {
-    getState: () => state,
+    state,
     draw: drawSunflower,
     update: updateSunflower,
   };

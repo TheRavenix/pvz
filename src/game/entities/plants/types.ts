@@ -12,6 +12,12 @@ export type PlantState = {
 } & Vector2 &
   Size;
 
+export type Plant<S extends PlantState = PlantState> = {
+  state: S;
+  draw(options: PlantDrawOptions): void;
+  update(options: PlantUpdateOptions): void;
+};
+
 export type PlantDrawOptions<S extends PlantState = PlantState> = {
   state: S;
   board: Board;
