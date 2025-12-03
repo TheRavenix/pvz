@@ -1,7 +1,7 @@
 import "./style.css";
 
 import { createBoard } from "./game/board";
-import { createGame, startGame } from "./game/game";
+import { createGame } from "./game/game";
 
 const app = document.querySelector("#app");
 
@@ -12,5 +12,5 @@ window.addEventListener("load", () => {
   });
   const game = createGame();
 
-  startGame(game, board);
+  game.start(game, board);
 });

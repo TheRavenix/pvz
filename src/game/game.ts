@@ -27,6 +27,7 @@ type Game = {
   zombieManager: ZombieManager;
   plantManager: PlantManager;
   shots: Shot[];
+  start(game: Game, board: Board): void;
 };
 
 function createGame(): Game {
@@ -68,14 +69,15 @@ function createGame(): Game {
     zombieManager,
     plantManager,
     shots,
+    start,
   };
 }
 
-function startGame(game: Game, board: Board) {
-  requestAnimationFrame((currentTime) => animateGame(currentTime, game, board));
+function start(game: Game, board: Board) {
+  requestAnimationFrame((currentTime) => animate(currentTime, game, board));
 }
 
-function drawGame(game: Game, board: Board) {
+function draw(game: Game, board: Board) {
   const { ctx } = board;
 
   if (ctx === null) {
@@ -106,7 +108,7 @@ function drawGame(game: Game, board: Board) {
   }
 }
 
-function updateGame(deltaTime: number, game: Game) {
+function update(deltaTime: number, game: Game) {
   for (const zombie of game.zombieManager.zombies) {
     zombie.update({
       deltaTime,
@@ -128,18 +130,18 @@ function updateGame(deltaTime: number, game: Game) {
   }
 }
 
-function animateGame(currentTime: number, game: Game, board: Board) {
+function animate(currentTime: number, game: Game, board: Board) {
   const deltaTime = currentTime - game.lastTime;
 
   game.lastTime = currentTime;
 
-  drawGame(game, board);
-  updateGame(deltaTime, game);
+  draw(game, board);
+  update(deltaTime, game);
 
   requestAnimationFrame((newCurrentTime) =>
-    animateGame(newCurrentTime, game, board)
+    animate(newCurrentTime, game, board)
   );
 }
 
-export { createGame, startGame };
+export { createGame };
 export type { Game };
