@@ -4,10 +4,12 @@ type PlantManager = {
   get plants(): Plant[];
   addPlant(plant: Plant): void;
   addPlants(...plants: Plant[]): void;
+  removePlantById(id: string): void;
+  findPlantById(id: string): Plant | undefined;
 };
 
 function createPlantManager(): PlantManager {
-  const plants: Plant[] = [];
+  let plants: Plant[] = [];
 
   return {
     get plants() {
@@ -19,11 +21,25 @@ function createPlantManager(): PlantManager {
         addPlant(plants, plant);
       }
     },
+    removePlantById: (id) => {
+      plants = removePlantById(plants, id);
+    },
+    findPlantById: (id) => {
+      return findPlantById(plants, id);
+    },
   };
 }
 
 function addPlant(plants: Plant[], plant: Plant) {
   plants.push(plant);
+}
+
+function removePlantById(plants: Plant[], id: string): Plant[] {
+  return plants.filter((plant) => plant.state.id !== id);
+}
+
+function findPlantById(plants: Plant[], id: string): Plant | undefined {
+  return plants.find((p) => p.state.id === id);
 }
 
 export { createPlantManager };

@@ -24,7 +24,11 @@ export function drawPlantName({ board, state }: PlantDrawOptions) {
   }
 
   ctx.fillStyle = "#000000";
-  ctx.fillText(state.name, state.x, state.y + state.height / 2);
+  ctx.fillText(
+    `${state.name} ${state.toughness}`,
+    state.x,
+    state.y + state.height / 2
+  );
 }
 
 export function syncPlantHitbox({ state }: PlantUpdateOptions) {

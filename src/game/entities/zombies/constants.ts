@@ -7,3 +7,11 @@ export const ZombieName = {
 } as const;
 
 export type ZombieName = (typeof ZombieName)[keyof typeof ZombieName];
+
+export const ZombieStateName = {
+  Walking: "walking",
+  Eating: "eating",
+} as const;
+
+export type ZombieStateName =
+  (typeof ZombieStateName)[keyof typeof ZombieStateName];

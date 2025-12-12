@@ -22,7 +22,7 @@ type Peashot = Shot<PeashotState>;
 
 type CreatePeashotOptions = Vector2;
 
-const PEASHOT_DAMAGE = 25;
+const PEASHOT_DAMAGE = 5;
 const PEASHOT_SPEED = 150;
 
 function createPeashot(options: CreatePeashotOptions): Peashot {

@@ -18,6 +18,7 @@ export type Plant<S extends PlantState = PlantState> = {
   get state(): S;
   draw(options: PlantDrawOptions): void;
   update(options: PlantUpdateOptions): void;
+  takeDamage(damage: PlantTakeDamageOptions): void;
 };
 
 export type PlantDrawOptions<S extends PlantState = PlantState> = {
@@ -29,4 +30,9 @@ export type PlantUpdateOptions<S extends PlantState = PlantState> = {
   deltaTime: number;
   get state(): S;
   get game(): Game;
+};
+
+export type PlantTakeDamageOptions<S extends PlantState = PlantState> = {
+  damage: number;
+  get state(): S;
 };

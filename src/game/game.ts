@@ -41,11 +41,11 @@ function createGame(): Game {
       y: TILE_HEIGHT * 2,
     }),
     createNormalZombie({
-      x: TILE_WIDTH * BOARD_ROWS,
+      x: TILE_WIDTH * (BOARD_ROWS + 1),
       y: TILE_HEIGHT * 2,
     }),
     createNormalZombie({
-      x: TILE_WIDTH * 2,
+      x: TILE_WIDTH * 4,
       y: 0,
     }),
     createFlagZombie({
@@ -56,6 +56,14 @@ function createGame(): Game {
   plantManager.addPlants(
     createSunflower({
       x: 0,
+      y: 0,
+    }),
+    createSunflower({
+      x: TILE_WIDTH,
+      y: 0,
+    }),
+    createSunflower({
+      x: TILE_WIDTH * 2,
       y: 0,
     }),
     createPeashooter({
@@ -129,7 +137,7 @@ function update(deltaTime: number, game: Game) {
     zombie.update({
       deltaTime,
       state: zombie.state,
-      zombieManager: game.zombieManager,
+      game,
     });
   }
   for (const plant of game.plantManager.plants) {
