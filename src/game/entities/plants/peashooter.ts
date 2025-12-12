@@ -14,6 +14,7 @@ import type {
   Plant,
   PlantDrawOptions,
   PlantState,
+  PlantTakeDamageOptions,
   PlantUpdateOptions,
 } from "./types";
 import type { Vector2 } from "@/game/utils/vector";
@@ -57,6 +58,7 @@ function createPeashooter(options: CreatePeashooterOptions): Peashooter {
     },
     draw,
     update,
+    takeDamage,
   };
 }
 
@@ -96,8 +98,17 @@ function update(options: PlantUpdateOptions<PeashooterState>) {
     }
     state.shotTimer = 0;
   }
+  if (state.toughness <= 0) {
+    game.plantManager.removePlantById(state.id);
+  }
 
   syncPlantHitbox(options);
+}
+
+function takeDamage(options: PlantTakeDamageOptions<PeashooterState>) {
+  const { state, damage } = options;
+
+  state.toughness -= damage;
 }
 
 export { createPeashooter };

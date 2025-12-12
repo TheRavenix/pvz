@@ -12,6 +12,7 @@ import type {
   Plant,
   PlantDrawOptions,
   PlantState,
+  PlantTakeDamageOptions,
   PlantUpdateOptions,
 } from "./types";
 import type { Vector2 } from "@/game/utils/vector";
@@ -55,6 +56,7 @@ function createSunflower(options: CreateSunflowerOptions): Sunflower {
     },
     draw,
     update,
+    takeDamage,
   };
 }
 
@@ -81,8 +83,17 @@ function update(options: PlantUpdateOptions<SunflowerState>) {
     game.sun += SUNFLOWER_SUN_PRODUCTION;
     state.rechargeTimer = 0;
   }
+  if (state.toughness <= 0) {
+    game.plantManager.removePlantById(state.id);
+  }
 
   syncPlantHitbox(options);
+}
+
+function takeDamage(options: PlantTakeDamageOptions<SunflowerState>) {
+  const { state, damage } = options;
+
+  state.toughness -= damage;
 }
 
 export { createSunflower };
