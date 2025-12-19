@@ -13,6 +13,7 @@ export type BaseZombie = {
   speed: number;
   hitbox: Hitbox;
   damageTimer: number;
+  freezeAmount: number;
 } & Vector2 &
   Size;
 

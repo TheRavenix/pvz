@@ -1,11 +1,11 @@
-import { shotHelpers } from "./shot-helpers";
-
-import { SHOT_HEIGHT, SHOT_WIDTH, ShotDirection, ShotType } from "./constants";
-import { zombieActions } from "../zombies";
-import { shotActions } from "./shot-actions";
+import { shotHelpers } from "../shot-helpers";
+import { zombieActions } from "../../zombies";
+import { shotActions } from "../shot-actions";
 import { hitboxActions } from "@/game/helpers/hitbox";
 
-import type { BaseShot, ShotDrawOptions, ShotUpdateOptions } from "./types";
+import { SHOT_HEIGHT, SHOT_WIDTH, ShotDirection, ShotType } from "../constants";
+
+import type { BaseShot, ShotDrawOptions, ShotUpdateOptions } from "../types";
 import type { Vector2 } from "@/game/types/vector";
 
 type Peashot = {
@@ -59,24 +59,7 @@ function updatePeashot(peashot: Peashot, options: ShotUpdateOptions) {
   const { zombies } = game;
   const speed = peashot.speed * (deltaTime / 1000);
 
-  switch (peashot.direction) {
-    case ShotDirection.Right:
-      peashot.x += speed;
-      break;
-
-    case ShotDirection.UpRight:
-      peashot.x += speed;
-      peashot.y -= speed;
-      break;
-
-    case ShotDirection.DownRight:
-      peashot.x += speed;
-      peashot.y += speed;
-      break;
-
-    default:
-      peashot.x += speed;
-  }
+  shotHelpers.handleShotDirection(peashot, speed);
 
   let deleteZombieId: string | null = null;
 
@@ -90,16 +73,14 @@ function updatePeashot(peashot: Peashot, options: ShotUpdateOptions) {
   if (deleteZombieId !== null) {
     const zombie = zombieActions.findZombieById(zombies, deleteZombieId);
 
-    if (zombie === undefined) {
-      return;
+    if (zombie !== undefined) {
+      zombieActions.zombieTakeDamage(zombie, {
+        damage: peashot.damage,
+      });
+      game.shots = shotActions.removeShotById(game.shots, peashot.id);
+
+      deleteZombieId = null;
     }
-
-    zombieActions.zombieTakeDamage(zombie, {
-      damage: peashot.damage,
-    });
-    game.shots = shotActions.removeShotById(game.shots, peashot.id);
-
-    deleteZombieId = null;
   }
 
   shotHelpers.syncShotHitbox(peashot);

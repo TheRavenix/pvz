@@ -1,17 +1,23 @@
-import type { Plant, PlantDrawOptions } from "./types";
+import type { BasePlant, Plant, PlantDrawOptions } from "./types";
 
 function createPlantId(): string {
   return `PLANT-${crypto.randomUUID()}`;
 }
 
-function drawPlantRect(plant: Plant, options: PlantDrawOptions) {
+type DrawPlantRectOptions = {
+  fillStyle?: string;
+} & PlantDrawOptions;
+
+function drawPlantRect(plant: BasePlant, options: DrawPlantRectOptions) {
   const { ctx } = options.board;
 
   if (ctx === null) {
     return;
   }
 
-  ctx.fillStyle = "#A0B09A";
+  const fillStyle = options?.fillStyle ?? "#A0B09A";
+
+  ctx.fillStyle = fillStyle;
   ctx.fillRect(plant.x, plant.y, plant.width, plant.height);
   ctx.fill();
 }
@@ -31,7 +37,7 @@ function drawPlantType(plant: Plant, options: PlantDrawOptions) {
   );
 }
 
-function syncPlantHitbox(plant: Plant) {
+function syncPlantHitbox(plant: BasePlant) {
   plant.hitbox.x = plant.x;
   plant.hitbox.y = plant.y;
 }

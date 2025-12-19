@@ -1,7 +1,7 @@
 import { plantHelpers } from "./plant-helpers";
+import { hitboxActions } from "@/game/helpers/hitbox";
 
 import { PLANT_HEIGHT, PLANT_WIDTH, PlantType } from "./constants";
-import { hitboxActions } from "@/game/helpers/hitbox";
 
 import type {
   BasePlant,

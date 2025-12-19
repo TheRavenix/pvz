@@ -6,12 +6,15 @@ import {
 import {
   drawPeashooter,
   drawRepeater,
+  drawSnowpea,
   drawThreepeater,
   peashooterTakeDamage,
   repeaterTakeDamage,
+  snowpeaTakeDamage,
   threepeaterTakeDamage,
   updatePeashooter,
   updateRepeater,
+  updateSnowpea,
   updateThreepeater,
 } from "./pea";
 
@@ -29,14 +32,21 @@ function drawPlant(plant: Plant, options: PlantDrawOptions) {
     case PlantType.Sunflower:
       drawSunflower(plant, options);
       break;
+
     case PlantType.Peashooter:
       drawPeashooter(plant, options);
       break;
+
     case PlantType.Repeater:
       drawRepeater(plant, options);
       break;
+
     case PlantType.Threepeater:
       drawThreepeater(plant, options);
+      break;
+
+    case PlantType.Snowpea:
+      drawSnowpea(plant, options);
       break;
   }
 }
@@ -58,6 +68,10 @@ function updatePlant(plant: Plant, options: PlantUpdateOptions) {
     case PlantType.Threepeater:
       updateThreepeater(plant, options);
       break;
+
+    case PlantType.Snowpea:
+      updateSnowpea(plant, options);
+      break;
   }
 }
 
@@ -77,6 +91,10 @@ function plantTakeDamage(plant: Plant, options: PlantTakeDamageOptions) {
 
     case PlantType.Threepeater:
       threepeaterTakeDamage(plant, options);
+      break;
+
+    case PlantType.Snowpea:
+      snowpeaTakeDamage(plant, options);
       break;
   }
 }

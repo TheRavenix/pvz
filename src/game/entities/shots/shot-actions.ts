@@ -4,7 +4,12 @@ import {
   TILE_HEIGHT,
   TILE_WIDTH,
 } from "@/game/board";
-import { drawPeashot, updatePeashot } from "./peashot";
+import {
+  drawPeashot,
+  drawSnowpeaShot,
+  updatePeashot,
+  updateSnowpeaShot,
+} from "./pea";
 
 import { ShotType } from "./constants";
 
@@ -15,6 +20,10 @@ function drawShot(shot: Shot, options: ShotDrawOptions) {
     case ShotType.Peashot:
       drawPeashot(shot, options);
       break;
+
+    case ShotType.SnowpeaShot:
+      drawSnowpeaShot(shot, options);
+      break;
   }
 }
 
@@ -22,6 +31,10 @@ function updateShot(shot: Shot, options: ShotUpdateOptions) {
   switch (shot.type) {
     case ShotType.Peashot:
       updatePeashot(shot, options);
+      break;
+
+    case ShotType.SnowpeaShot:
+      updateSnowpeaShot(shot, options);
       break;
   }
 }

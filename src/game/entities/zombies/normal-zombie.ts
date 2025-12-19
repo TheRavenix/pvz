@@ -1,4 +1,6 @@
+import { plantActions } from "../plants";
 import { zombieHelpers } from "./zombie-helpers";
+import { hitboxActions } from "@/game/helpers/hitbox";
 
 import {
   ZOMBIE_HEIGHT,
@@ -6,7 +8,6 @@ import {
   ZombieState,
   ZombieType,
 } from "./constants";
-import { plantActions } from "../plants";
 
 import { type Vector2 } from "@/game/types/vector";
 import type {
@@ -15,7 +16,6 @@ import type {
   ZombieTakeDamageOptions,
   ZombieUpdateOptions,
 } from "./types";
-import { hitboxActions } from "@/game/helpers/hitbox";
 
 type NormalZombie = {
   type: ZombieType.Normal;
@@ -48,6 +48,7 @@ function createNormalZombie(options: CreateNormalZombieOptions): NormalZombie {
       height: ZOMBIE_HEIGHT,
     },
     damageTimer: 0,
+    freezeAmount: 0,
   };
 }
 

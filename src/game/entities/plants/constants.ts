@@ -6,4 +6,5 @@ export enum PlantType {
   Sunflower = "Sunflower",
   Repeater = "Repeater",
   Threepeater = "Threepeater",
+  Snowpea = "Snowpea",
 }

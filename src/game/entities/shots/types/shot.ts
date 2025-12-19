@@ -1,3 +1,3 @@
-import type { Peashot } from "../peashot";
+import type { Peashot, SnowpeaShot } from "../pea";
 
-export type Shot = Peashot;
+export type Shot = Peashot | SnowpeaShot;

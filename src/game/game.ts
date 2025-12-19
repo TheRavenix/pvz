@@ -16,6 +16,7 @@ import {
 } from "./entities/zombies";
 import {
   createPeashooter,
+  createSnowpea,
   createSunflower,
   createThreepeater,
   plantActions,
@@ -30,11 +31,6 @@ type Game = {
   plants: Plant[];
   shots: Shot[];
 };
-
-const gameActions = {
-  createGame,
-  startGame,
-} as const;
 
 function createGame(): Game {
   let zombies: Zombie[] = [];
@@ -52,7 +48,7 @@ function createGame(): Game {
       y: TILE_HEIGHT * 2,
     }),
     createNormalZombie({
-      x: TILE_WIDTH * 4,
+      x: TILE_WIDTH * (BOARD_ROWS - 1),
       y: 0,
     }),
     createFlagZombie({
@@ -82,8 +78,16 @@ function createGame(): Game {
       x: TILE_WIDTH,
       y: TILE_HEIGHT * 2,
     }),
+    createSnowpea({
+      x: TILE_WIDTH * 3,
+      y: TILE_HEIGHT * 2,
+    }),
     createThreepeater({
       x: 0,
+      y: TILE_HEIGHT * (BOARD_COLS - 1),
+    }),
+    createSnowpea({
+      x: TILE_WIDTH * 3,
       y: TILE_HEIGHT * (BOARD_COLS - 1),
     })
   );
@@ -112,13 +116,6 @@ function draw(game: Game, board: Board) {
 
   boardActions.drawTileStroke(board);
 
-  ctx.fillStyle = "#ffffff";
-  ctx.fillText(
-    `SUN: ${game.sun}`,
-    BOARD_WIDTH - TILE_WIDTH / 2,
-    TILE_HEIGHT / 2
-  );
-
   for (const zombie of game.zombies) {
     zombieActions.drawZombie(zombie, {
       board,
@@ -134,6 +131,13 @@ function draw(game: Game, board: Board) {
       board,
     });
   }
+
+  ctx.fillStyle = "#ffffff";
+  ctx.fillText(
+    `SUN: ${game.sun}`,
+    BOARD_WIDTH - TILE_WIDTH / 2,
+    TILE_HEIGHT / 2
+  );
 }
 
 function update(deltaTime: number, game: Game) {
@@ -173,6 +177,11 @@ function animate(currentTime: number, game: Game, board: Board) {
     animate(newCurrentTime, game, board)
   );
 }
+
+const gameActions = {
+  createGame,
+  startGame,
+} as const;
 
 export { gameActions };
 export type { Game };
