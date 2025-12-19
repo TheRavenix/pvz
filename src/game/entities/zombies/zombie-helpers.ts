@@ -1,10 +1,15 @@
-import type { Zombie, ZombieDrawOptions, ZombieUpdateOptions } from "./types";
+import type {
+  BaseZombie,
+  Zombie,
+  ZombieDrawOptions,
+  ZombieUpdateOptions,
+} from "./types";
 
 function createZombieId(): string {
   return `ZOMBIE-${crypto.randomUUID()}`;
 }
 
-function drawZombieRect(zombie: Zombie, options: ZombieDrawOptions) {
+function drawZombieRect(zombie: BaseZombie, options: ZombieDrawOptions) {
   const { ctx } = options.board;
 
   if (ctx === null) {
@@ -25,20 +30,22 @@ function drawZombieType(zombie: Zombie, options: ZombieDrawOptions) {
 
   ctx.fillStyle = "#000000";
   ctx.fillText(
-    `${zombie.type} ${zombie.health}`,
+    `${zombie.type} ${zombie.freezeAmount}%`,
     zombie.x,
     zombie.y + zombie.height / 2
   );
 }
 
 function handleZombieDefaultMovement(
-  zombie: Zombie,
+  zombie: BaseZombie,
   options: ZombieUpdateOptions
 ) {
-  zombie.x -= zombie.speed * (options.deltaTime / 1000);
+  const { speed, freezeAmount } = zombie;
+  const freezedSpeed = (speed * freezeAmount) / 100;
+  zombie.x -= (speed - freezedSpeed) * (options.deltaTime / 1000);
 }
 
-function syncZombieHitbox(zombie: Zombie) {
+function syncZombieHitbox(zombie: BaseZombie) {
   zombie.hitbox.x = zombie.x;
   zombie.hitbox.y = zombie.y;
 }

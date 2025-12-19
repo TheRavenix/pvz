@@ -1,9 +1,10 @@
-import { plantHelpers } from "../plant-helpers";
+import { TILE_WIDTH } from "@/game/board";
 import { createPeashot, SHOT_HEIGHT, shotActions } from "../../shots";
 
-import { PLANT_HEIGHT, PLANT_WIDTH, PlantType } from "../constants";
-import { TILE_WIDTH } from "@/game/board";
+import { plantHelpers } from "../plant-helpers";
 import { hitboxActions } from "@/game/helpers/hitbox";
+
+import { PLANT_HEIGHT, PLANT_WIDTH, PlantType } from "../constants";
 
 import type {
   BasePlant,
